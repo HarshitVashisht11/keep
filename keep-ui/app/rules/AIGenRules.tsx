@@ -40,6 +40,7 @@ import { useSession } from "next-auth/react";
 import { getApiURL } from "utils/apiUrl";
 import useSWR, { mutate } from "swr";
 import Loading from "app/loading";
+import { Button } from "@/components/ui";
 
 const columnHelper = createColumnHelper<AIGeneratedRule>();
 
@@ -294,19 +295,9 @@ export const AIGenRules: React.FC = () => {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col items-start">
-        <button
-          onClick={handleGenerateMoreRules}
-          className="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 flex items-center"
-        >
-          Generate more rules
-        </button>
-        <h2 className="text-xl font-semibold mt-4 self-center">
-          AI Generated Rules
-        </h2>
-      </div>
-      <p className="text-center">{generatedRules.summery}</p>
+    <div className="flex flex-col gap-4">
+      <h2 className="text-xl font-semibold">AI Generated Rules</h2>
+      <p>{generatedRules.summery}</p>
       <Table>
         <TableHead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -348,6 +339,13 @@ export const AIGenRules: React.FC = () => {
           })}
         </TableBody>
       </Table>
+      <Button
+        variant="primary"
+        onClick={handleGenerateMoreRules}
+        className="self-center"
+      >
+        Generate more rules
+      </Button>
     </div>
   );
 };
