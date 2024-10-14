@@ -40,7 +40,7 @@ import { useSession } from "next-auth/react";
 import { getApiURL } from "utils/apiUrl";
 import useSWR, { mutate } from "swr";
 import Loading from "app/loading";
-import { Button } from "@/components/ui";
+import { Button, Tooltip } from "@/components/ui";
 
 const columnHelper = createColumnHelper<AIGeneratedRule>();
 
@@ -203,30 +203,54 @@ export const AIGenRules: React.FC = () => {
             const rule = info.row.original;
             return (
               <div className="flex space-x-2">
-                <Icon
-                  icon={InformationCircleIcon}
-                  tooltip={`Thinking behind the rule: ${rule.ChainOfThought}`}
-                  size="xs"
-                  color="gray"
-                  className="ml-1"
-                  variant="solid"
-                />
-                <Icon
-                  icon={ExclamationTriangleIcon}
-                  tooltip={`Why this rule is too general: ${rule.WhyTooGeneral}`}
-                  size="xs"
-                  color="gray"
-                  className="ml-1"
-                  variant="solid"
-                />
-                <Icon
-                  icon={QuestionMarkCircleIcon}
-                  tooltip={`Why this rule is too specific: ${rule.WhyTooSpecific}`}
-                  size="xs"
-                  color="gray"
-                  className="ml-1"
-                  variant="solid"
-                />
+                <Tooltip
+                  content={
+                    <>
+                      <p className="font-bold">Thinking behind the rule</p>
+                      {rule.ChainOfThought}
+                    </>
+                  }
+                >
+                  <Icon
+                    icon={InformationCircleIcon}
+                    size="xs"
+                    color="gray"
+                    className="ml-1"
+                    variant="solid"
+                  />
+                </Tooltip>
+                <Tooltip
+                  content={
+                    <>
+                      <p className="font-bold">Why rule may be too general</p>
+                      {rule.WhyTooGeneral}
+                    </>
+                  }
+                >
+                  <Icon
+                    icon={ExclamationTriangleIcon}
+                    size="xs"
+                    color="gray"
+                    className="ml-1"
+                    variant="solid"
+                  />
+                </Tooltip>
+                <Tooltip
+                  content={
+                    <>
+                      <p className="font-bold">Why rule may be too specific</p>
+                      {rule.WhyTooSpecific}
+                    </>
+                  }
+                >
+                  <Icon
+                    icon={QuestionMarkCircleIcon}
+                    size="xs"
+                    color="gray"
+                    className="ml-1"
+                    variant="solid"
+                  />
+                </Tooltip>
               </div>
             );
           },
